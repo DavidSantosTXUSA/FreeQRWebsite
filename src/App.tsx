@@ -9,7 +9,6 @@ import { useQRCode } from './hooks/useQRCode';
 
 function App() {
   const [url, setUrl] = useState<string>('');
-  const [validURL, setValidURL] = useState<string>('');
   const [downloadSuccess, setDownloadSuccess] = useState<string>('');
   const { qrCode, loading, error, generate } = useQRCode();
 
@@ -19,7 +18,6 @@ function App() {
   };
 
   const handleValidURL = (normalizedURL: string) => {
-    setValidURL(normalizedURL);
     generate(normalizedURL);
   };
 
