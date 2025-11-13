@@ -22,8 +22,14 @@ function App() {
   };
 
   const handleDownload = () => {
-    setDownloadSuccess('QR code downloaded successfully!');
-    setTimeout(() => setDownloadSuccess(''), 3000);
+    // Check if mobile device for different success message
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const successMessage = isMobile
+      ? 'QR code opened in new tab. Long-press to save image.'
+      : 'QR code downloaded successfully!';
+    
+    setDownloadSuccess(successMessage);
+    setTimeout(() => setDownloadSuccess(''), 4000);
   };
 
   return (

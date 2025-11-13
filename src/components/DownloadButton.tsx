@@ -24,6 +24,7 @@ export const DownloadButton: React.FC<DownloadButtonProps> = ({
       }
     } catch (error) {
       console.error('Failed to download QR code:', error);
+      // Error will be handled by error boundary or parent component
     }
   };
 
