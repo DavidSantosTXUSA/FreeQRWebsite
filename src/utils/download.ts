@@ -6,39 +6,43 @@
  */
 export function downloadQRCode(imageData: string, filename: string = 'qrcode.png'): void {
   try {
-    // Check if we're on a mobile device
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    // Convert data URL to blob for better compatibility
+    const blob = dataURLtoBlob(imageData);
+    const blobURL = URL.createObjectURL(blob);
     
-    if (isMobile) {
-      // For mobile devices, open image in new tab/window for download
-      // User can long-press to save image
-      const newWindow = window.open();
-      if (newWindow) {
-        newWindow.document.write(`<img src="${imageData}" alt="QR Code" style="max-width:100%;height:auto;" />`);
-        newWindow.document.close();
-      } else {
-        // Fallback: create download link
-        const link = document.createElement('a');
-        link.href = imageData;
-        link.download = filename;
-        link.target = '_blank';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
-    } else {
-      // For desktop browsers, use standard download
-      const link = document.createElement('a');
-      link.href = imageData;
-      link.download = filename;
-      
-      // Append to body, click, and remove
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
+    // Create download link
+    const link = document.createElement('a');
+    link.href = blobURL;
+    link.download = filename;
+    
+    // Append to body, click, and remove
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Clean up blob URL after a short delay
+    setTimeout(() => {
+      URL.revokeObjectURL(blobURL);
+    }, 100);
   } catch (error) {
     throw new Error('Failed to download QR code. Please try again.');
   }
+}
+
+/**
+ * Convert data URL to blob
+ * @param dataURL - Data URL string
+ * @returns Blob - Blob object
+ */
+function dataURLtoBlob(dataURL: string): Blob {
+  const arr = dataURL.split(',');
+  const mime = arr[0].match(/:(.*?);/)?.[1] || 'image/png';
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new Blob([u8arr], { type: mime });
 }
 
