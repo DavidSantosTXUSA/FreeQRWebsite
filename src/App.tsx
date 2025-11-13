@@ -1,17 +1,52 @@
+import { useState } from 'react';
+import { Header } from './components/Header';
+import { URLInput } from './components/URLInput';
+import { QRCodePreview } from './components/QRCodePreview';
+import { DownloadButton } from './components/DownloadButton';
+import { ErrorMessage } from './components/ErrorMessage';
+import { SuccessFeedback } from './components/SuccessFeedback';
+import { useQRCode } from './hooks/useQRCode';
+
 function App() {
+  const [url, setUrl] = useState<string>('');
+  const [validURL, setValidURL] = useState<string>('');
+  const [downloadSuccess, setDownloadSuccess] = useState<string>('');
+  const { qrCode, loading, error, generate } = useQRCode();
+
+  const handleURLChange = (newUrl: string) => {
+    setUrl(newUrl);
+    setDownloadSuccess('');
+  };
+
+  const handleValidURL = (normalizedURL: string) => {
+    setValidURL(normalizedURL);
+    generate(normalizedURL);
+  };
+
+  const handleDownload = () => {
+    setDownloadSuccess('QR code downloaded successfully!');
+    setTimeout(() => setDownloadSuccess(''), 3000);
+  };
+
   return (
     <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold text-center text-gray-900">
-          Free QR Code Generator
-        </h1>
-        <p className="text-center text-gray-600 mt-4">
-          Generate permanent QR codes from URLs instantly
-        </p>
-      </div>
+      <Header />
+      <main className="container mx-auto px-4 py-8 max-w-2xl">
+        <div className="space-y-6">
+          <URLInput
+            value={url}
+            onChange={handleURLChange}
+            onValidURL={handleValidURL}
+          />
+          <QRCodePreview qrCode={qrCode} loading={loading} error={error} />
+          <DownloadButton qrCode={qrCode} onDownload={handleDownload} />
+          <ErrorMessage message={error || ''} />
+          <SuccessFeedback message={downloadSuccess} />
+        </div>
+      </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
 
