@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { validateURL, getURLValidationError } from '../utils/urlValidation';
 
 interface URLInputProps {
@@ -10,6 +10,12 @@ interface URLInputProps {
 export const URLInput: React.FC<URLInputProps> = ({ value, onChange, onValidURL }) => {
   const [error, setError] = useState<string | null>(null);
   const [isValid, setIsValid] = useState<boolean>(false);
+  const onValidURLRef = useRef(onValidURL);
+
+  // Keep ref up to date
+  useEffect(() => {
+    onValidURLRef.current = onValidURL;
+  }, [onValidURL]);
 
   useEffect(() => {
     if (value.trim() === '') {
@@ -28,11 +34,11 @@ export const URLInput: React.FC<URLInputProps> = ({ value, onChange, onValidURL 
       if (!normalizedURL.match(/^https?:\/\//i)) {
         normalizedURL = `https://${normalizedURL}`;
       }
-      onValidURL(normalizedURL);
+      onValidURLRef.current(normalizedURL);
     } else {
       setError(getURLValidationError(value));
     }
-  }, [value, onValidURL]);
+  }, [value]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;

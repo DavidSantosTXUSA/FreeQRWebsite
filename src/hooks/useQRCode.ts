@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { generateQRCode } from '../utils/qrCodeGeneration';
 
 interface UseQRCodeReturn {
@@ -18,7 +18,7 @@ export function useQRCode(initialUrl?: string): UseQRCodeReturn {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const generate = async (url: string) => {
+  const generate = useCallback(async (url: string) => {
     if (!url || url.trim() === '') {
       setQRCode(null);
       setError(null);
@@ -38,13 +38,13 @@ export function useQRCode(initialUrl?: string): UseQRCodeReturn {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (initialUrl) {
       generate(initialUrl);
     }
-  }, [initialUrl]);
+  }, [initialUrl, generate]);
 
   return { qrCode, loading, error, generate };
 }
