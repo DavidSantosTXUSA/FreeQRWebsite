@@ -24,20 +24,25 @@ export const URLInput: React.FC<URLInputProps> = ({ value, onChange, onValidURL 
       return;
     }
 
-    const valid = validateURL(value);
-    setIsValid(valid);
-    
-    if (valid) {
-      setError(null);
-      // Normalize URL for QR code generation
-      let normalizedURL = value.trim();
-      if (!normalizedURL.match(/^https?:\/\//i)) {
-        normalizedURL = `https://${normalizedURL}`;
+    // Debounce validation to avoid too many QR code generations
+    const timeoutId = setTimeout(() => {
+      const valid = validateURL(value);
+      setIsValid(valid);
+      
+      if (valid) {
+        setError(null);
+        // Normalize URL for QR code generation
+        let normalizedURL = value.trim();
+        if (!normalizedURL.match(/^https?:\/\//i)) {
+          normalizedURL = `https://${normalizedURL}`;
+        }
+        onValidURLRef.current(normalizedURL);
+      } else {
+        setError(getURLValidationError(value));
       }
-      onValidURLRef.current(normalizedURL);
-    } else {
-      setError(getURLValidationError(value));
-    }
+    }, 300); // 300ms debounce for better performance
+
+    return () => clearTimeout(timeoutId);
   }, [value]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
