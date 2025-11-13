@@ -57,7 +57,7 @@ export const URLInput: React.FC<URLInputProps> = ({ value, onChange, onValidURL 
         value={value}
         onChange={handleChange}
         placeholder="Enter URL (e.g., https://example.com)"
-        className={`w-full px-4 py-3 text-lg border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors ${
+        className={`w-full px-4 py-3 md:py-4 text-base md:text-lg border-2 rounded-lg focus:outline-none focus:ring-2 transition-colors min-h-[44px] ${
           error
             ? 'border-red-500 focus:ring-red-500'
             : isValid
@@ -67,6 +67,8 @@ export const URLInput: React.FC<URLInputProps> = ({ value, onChange, onValidURL 
         aria-label="Enter URL for QR code generation"
         aria-invalid={error ? 'true' : 'false'}
         aria-describedby={error ? 'url-error' : undefined}
+        autoComplete="url"
+        inputMode="url"
       />
       {error && (
         <p

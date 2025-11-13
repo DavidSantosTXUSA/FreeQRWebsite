@@ -35,12 +35,13 @@ export const QRCodePreview: React.FC<QRCodePreviewProps> = ({ qrCode, loading, e
   }
 
   return (
-    <div className="flex items-center justify-center w-full max-w-md mx-auto p-8 bg-white rounded-lg border border-gray-200">
+    <div className="flex items-center justify-center w-full max-w-md mx-auto p-4 md:p-8 bg-white rounded-lg border border-gray-200 shadow-sm">
       <img
         src={qrCode}
         alt="Generated QR Code"
-        className="w-full max-w-sm h-auto"
+        className="w-full max-w-xs md:max-w-sm h-auto"
         aria-label="Generated QR code"
+        loading="lazy"
       />
     </div>
   );

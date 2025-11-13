@@ -29,8 +29,8 @@ function App() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <main className="container mx-auto px-4 py-8 max-w-2xl">
-        <div className="space-y-6">
+      <main className="container mx-auto px-4 py-4 md:py-8 max-w-2xl">
+        <div className="space-y-4 md:space-y-6">
           <URLInput
             value={url}
             onChange={handleURLChange}

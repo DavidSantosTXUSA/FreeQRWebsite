@@ -2,11 +2,6 @@ import QRCode from 'qrcode';
 
 /**
  * Generate QR code from URL string
- * @param url - URL string to generate QR code from
- * @returns Promise<string> - QR code image data URL (PNG format)
- */
-/**
- * Generate QR code from URL string
  * Optimized for performance with appropriate size based on URL length
  * @param url - URL string to generate QR code from
  * @returns Promise<string> - QR code image data URL (PNG format)
