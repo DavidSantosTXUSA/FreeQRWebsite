@@ -22,7 +22,7 @@ export const stylePresets: StylePreset[] = [
   {
     id: 'sunset',
     label: 'Sunset Gradient',
-    description: 'Warm gradient with rounded dots—perfect for event flyers.',
+    description: 'Warm gradient with rounded dots, perfect for event flyers.',
     options: {
       foregroundColor: '#FB923C',
       backgroundColor: '#FFF7ED',

@@ -10,6 +10,7 @@ export interface StyledQRCodeOptions {
     type: 'linear' | 'radial';
     rotation?: number;
   };
+  logoSizePercent?: number;
   logoDataUrl?: string | null;
 }
 

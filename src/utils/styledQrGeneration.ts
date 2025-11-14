@@ -13,7 +13,7 @@ export async function generateStyledQRCode(url: string, options: StyledQRCodeOpt
       hideBackgroundDots: true,
       crossOrigin: 'anonymous',
       margin: 8,
-      imageSize: 0.2,
+      imageSize: options.logoSizePercent ? options.logoSizePercent / 100 : 0.2,
     },
     backgroundOptions: {
       color: options.backgroundColor,

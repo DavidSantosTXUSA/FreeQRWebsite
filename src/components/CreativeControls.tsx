@@ -108,7 +108,7 @@ export function CreativeControls({
 
   return (
     <section className="bg-white/90 border border-slate-100 rounded-3xl shadow-xl p-6 md:p-8 space-y-6">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-sm font-semibold text-primary uppercase tracking-wide">Creative mode</p>
           <p className="text-gray-600 text-sm mt-1">
@@ -117,34 +117,30 @@ export function CreativeControls({
         </div>
         <button
           type="button"
-          className={`relative inline-flex h-12 w-28 items-center rounded-full border-2 transition-all ${
-            enabled
-              ? 'bg-primary/90 border-primary shadow-lg shadow-primary/30'
-              : 'bg-white border-primary text-primary'
-          }`}
           onClick={() => onToggle(!enabled)}
-          aria-pressed={enabled}
+          className={`relative inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wide transition-colors ${
+            enabled ? 'bg-primary text-white shadow-lg shadow-primary/30' : 'bg-white text-primary border border-primary'
+          }`}
         >
+          {enabled ? 'Creative On' : 'Creative Off'}
           <span
-            className={`absolute inset-0 flex items-center text-xs font-semibold uppercase tracking-wide transition-all ${
-              enabled
-                ? 'justify-start text-white pl-4 pr-10'
-                : 'justify-end text-primary pr-4 pl-10'
-            }`}
-          >
-            {enabled ? 'On' : 'Off'}
-          </span>
-          <span
-            className={`inline-block h-9 w-9 transform rounded-full bg-white shadow-md transition-transform ${
-              enabled ? 'translate-x-12' : 'translate-x-1'
+            className={`h-4 w-4 rounded-full border-2 transition-colors ${
+              enabled ? 'border-white bg-white/20' : 'border-primary bg-transparent'
             }`}
           />
         </button>
       </div>
 
+      {!enabled && (
+        <div className="rounded-2xl border border-slate-100 bg-slate-50/80 p-5 text-sm text-gray-600">
+          Flip the switch to unlock gradients, custom palettes, and logo overlays. Preset bundles will load
+          automatically so you can tweak without starting from scratch.
+        </div>
+      )}
+
       {enabled && (
         <div className="space-y-6">
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="space-y-3">
             {stylePresets.map((preset) => {
               const active = preset.id === selectedPresetId;
               return (
@@ -152,19 +148,28 @@ export function CreativeControls({
                   key={preset.id}
                   type="button"
                   onClick={() => onPresetChange(preset.id)}
-                  className={`rounded-2xl border p-4 text-left transition-all ${
+                  className={`w-full rounded-2xl border px-4 py-3 text-left transition-all ${
                     active
-                      ? 'border-primary bg-primary/5 shadow-lg shadow-primary/10'
-                      : 'border-slate-200 hover:border-primary/50'
+                      ? 'border-primary bg-primary/5 shadow-lg shadow-primary/10 ring-1 ring-primary/30'
+                      : 'border-slate-200 hover:border-primary/50 hover:bg-slate-50'
                   }`}
                 >
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-semibold text-gray-900">{preset.label}</h3>
-                    {active && (
-                      <span className="text-xs font-bold text-primary uppercase">Selected</span>
-                    )}
+                  <div className="flex items-start gap-3">
+                    <span
+                      className={`mt-1 h-3 w-3 rounded-full ${
+                        active ? 'bg-primary' : 'bg-slate-300'
+                      }`}
+                    />
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-semibold text-gray-900">{preset.label}</h3>
+                        {active && (
+                          <span className="text-[10px] font-bold uppercase tracking-wide text-primary">Selected</span>
+                        )}
+                      </div>
+                      <p className="text-xs text-gray-600 leading-relaxed">{preset.description}</p>
+                    </div>
                   </div>
-                  <p className="mt-2 text-sm text-gray-600 leading-relaxed">{preset.description}</p>
                 </button>
               );
             })}
@@ -199,7 +204,7 @@ export function CreativeControls({
             )}
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4 lg:grid-cols-2">
             <div className="rounded-2xl border border-slate-200 p-5 space-y-4">
               <div>
                 <p className="text-sm	font-semibold text-gray-900">Color palette</p>
@@ -270,6 +275,25 @@ export function CreativeControls({
                         onChange={(e) => handleGradientRotationChange(Number(e.target.value))}
                         className="w-full"
                       />
+                    </label>
+                    <label className="text-xs font-semibold text-gray-600 flex items-center justify-between">
+                      Type
+                      <select
+                        value={styleOptions.gradient.type}
+                        onChange={(e) =>
+                          onStyleChange({
+                            ...styleOptions,
+                            gradient: {
+                              ...styleOptions.gradient!,
+                              type: e.target.value as 'linear' | 'radial',
+                            },
+                          })
+                        }
+                        className="ml-3 rounded-xl border border-slate-200 px-3 py-2 text-sm"
+                      >
+                        <option value="linear">Linear</option>
+                        <option value="radial">Radial</option>
+                      </select>
                     </label>
                   </div>
                 )}

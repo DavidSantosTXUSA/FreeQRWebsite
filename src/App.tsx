@@ -24,7 +24,7 @@ function App() {
     () => [
       {
         title: 'Paste any link',
-        description: 'Marketing page, signup form, PDF—anything with https:// works.',
+        description: 'Marketing page, signup form, PDF, anything with https:// works.',
       },
       {
         title: 'We validate instantly',
@@ -95,17 +95,17 @@ function App() {
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-white text-gray-900">
       <Header />
       <main className="px-4 pb-16">
-        <section className="max-w-4xl mx-auto space-y-10">
-          <div className="bg-white/90 backdrop-blur-sm border border-slate-100 rounded-3xl shadow-xl p-6 md:p-8 space-y-8">
-            <div className="space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-gray-500">
-                <span className="inline-flex items-center gap-2">
-                  <span className="h-2 w-2 rounded-full bg-success" aria-hidden="true" />
-                  100% client-side generation
-                </span>
-                <span>Optimized for posters, flyers, and campus events</span>
-              </div>
-              <div className="space-y-6">
+        <div className="max-w-6xl mx-auto space-y-10">
+          <div className="bg-white/90 backdrop-blur-sm border border-slate-100 rounded-3xl shadow-xl p-6 md:p-8">
+            <div className="flex flex-col lg:flex-row gap-8">
+              <div className="flex-1 space-y-6">
+                <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-gray-500">
+                  <span className="inline-flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-success" aria-hidden="true" />
+                    100% client-side generation
+                  </span>
+                  <span>Optimized for posters, flyers, and campus events</span>
+                </div>
                 <URLInput value={url} onChange={handleURLChange} onValidURL={handleValidURL} />
                 <QRCodePreview
                   qrCode={qrCode}
@@ -116,35 +116,32 @@ function App() {
                 <DownloadButton qrCode={qrCode} onDownload={handleDownload} />
                 <ErrorMessage message={error || ''} />
                 <SuccessFeedback message={downloadSuccess} />
+                <div className="grid gap-4 md:grid-cols-3">
+                  {steps.map((step) => (
+                    <div
+                      key={step.title}
+                      className="rounded-2xl border border-slate-100 bg-slate-50/60 p-4 text-sm space-y-2"
+                    >
+                      <h3 className="font-semibold text-gray-900">{step.title}</h3>
+                      <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="w-full lg:w-96">
+                <CreativeControls
+                  enabled={creativeMode}
+                  onToggle={setCreativeMode}
+                  selectedPresetId={selectedPresetId}
+                  onPresetChange={handlePresetChange}
+                  onLogoUpload={setLogoDataUrl}
+                  logoPreview={logoDataUrl}
+                  styleOptions={styleOptions}
+                  onStyleChange={handleStyleOptionsChange}
+                />
               </div>
             </div>
-
-            <div className="grid gap-4 md:grid-cols-3">
-              {steps.map((step) => (
-                <div
-                  key={step.title}
-                  className="rounded-2xl border border-slate-100 bg-slate-50/60 p-4 text-sm space-y-2"
-                >
-                  <h3 className="font-semibold text-gray-900">{step.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{step.description}</p>
-                </div>
-              ))}
-            </div>
           </div>
-        </section>
-        <section className="max-w-4xl mx-auto mt-16">
-          <CreativeControls
-            enabled={creativeMode}
-            onToggle={setCreativeMode}
-            selectedPresetId={selectedPresetId}
-            onPresetChange={handlePresetChange}
-            onLogoUpload={setLogoDataUrl}
-            logoPreview={logoDataUrl}
-            styleOptions={styleOptions}
-            onStyleChange={handleStyleOptionsChange}
-          />
-        </section>
-        <div className="mt-16">
           <FeatureHighlights />
         </div>
       </main>

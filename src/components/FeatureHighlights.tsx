@@ -65,7 +65,7 @@ const FeatureHighlightsComponent = () => {
       <div className="max-w-5xl mx-auto bg-white/80 border border-gray-100 rounded-3xl shadow-lg p-6 md:p-8 space-y-6">
         <div className="flex items-center gap-2 text-sm font-semibold text-primary uppercase tracking-wide">
           <span className="h-px w-8 bg-primary/30" aria-hidden="true" />
-          Why builders prefer this tool
+          About
         </div>
         <div className="grid gap-6 md:grid-cols-3">
           {features.map((feature) => (
