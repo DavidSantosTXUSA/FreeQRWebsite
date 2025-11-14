@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, memo } from 'react';
 import { validateURL, getURLValidationError } from '../utils/urlValidation';
 
 interface URLInputProps {
@@ -7,7 +7,7 @@ interface URLInputProps {
   onValidURL: (url: string) => void;
 }
 
-export const URLInput: React.FC<URLInputProps> = ({ value, onChange, onValidURL }) => {
+const URLInputComponent: React.FC<URLInputProps> = ({ value, onChange, onValidURL }) => {
   const [error, setError] = useState<string | null>(null);
   const [isValid, setIsValid] = useState<boolean>(false);
   const onValidURLRef = useRef(onValidURL);
@@ -82,4 +82,7 @@ export const URLInput: React.FC<URLInputProps> = ({ value, onChange, onValidURL 
     </div>
   );
 };
+
+export const URLInput = memo(URLInputComponent);
+URLInput.displayName = 'URLInput';
 

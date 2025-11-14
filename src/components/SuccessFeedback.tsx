@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 interface SuccessFeedbackProps {
   message: string;
 }
 
-export const SuccessFeedback: React.FC<SuccessFeedbackProps> = ({ message }) => {
+const SuccessFeedbackComponent: React.FC<SuccessFeedbackProps> = ({ message }) => {
   if (!message) {
     return null;
   }
@@ -19,4 +19,7 @@ export const SuccessFeedback: React.FC<SuccessFeedbackProps> = ({ message }) => 
     </div>
   );
 };
+
+export const SuccessFeedback = memo(SuccessFeedbackComponent);
+SuccessFeedback.displayName = 'SuccessFeedback';
 

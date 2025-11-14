@@ -1,17 +1,16 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  esbuild: {
+    drop: ['console', 'debugger'],
+  },
   build: {
     // Optimize build for production
     // Use esbuild for minification (faster, built-in, no extra dependency)
     minify: 'esbuild',
-    // Remove console.log in production
-    esbuild: {
-      drop: ['console', 'debugger'],
-    },
     // Code splitting for better performance
     rollupOptions: {
       output: {
@@ -28,6 +27,14 @@ export default defineConfig({
   server: {
     port: 5173,
     open: true, // Open browser automatically
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/setupTests.ts',
+    coverage: {
+      reporter: ['text', 'html'],
+    },
   },
 })
 

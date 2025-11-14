@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 interface QRCodePreviewProps {
   qrCode: string | null;
@@ -6,7 +6,7 @@ interface QRCodePreviewProps {
   error: string | null;
 }
 
-export const QRCodePreview: React.FC<QRCodePreviewProps> = ({ qrCode, loading, error }) => {
+const QRCodePreviewComponent: React.FC<QRCodePreviewProps> = ({ qrCode, loading, error }) => {
   if (loading) {
     return (
       <div className="flex items-center justify-center w-full max-w-md mx-auto p-8 bg-gray-50 rounded-lg">
@@ -46,4 +46,7 @@ export const QRCodePreview: React.FC<QRCodePreviewProps> = ({ qrCode, loading, e
     </div>
   );
 };
+
+export const QRCodePreview = memo(QRCodePreviewComponent);
+QRCodePreview.displayName = 'QRCodePreview';
 

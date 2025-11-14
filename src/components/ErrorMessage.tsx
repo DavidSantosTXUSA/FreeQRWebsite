@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 interface ErrorMessageProps {
   message: string;
 }
 
-export const ErrorMessage: React.FC<ErrorMessageProps> = ({ message }) => {
+const ErrorMessageComponent: React.FC<ErrorMessageProps> = ({ message }) => {
   if (!message) {
     return null;
   }
@@ -19,4 +19,7 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = ({ message }) => {
     </div>
   );
 };
+
+export const ErrorMessage = memo(ErrorMessageComponent);
+ErrorMessage.displayName = 'ErrorMessage';
 

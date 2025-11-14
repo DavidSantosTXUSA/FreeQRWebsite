@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { downloadQRCode } from '../utils/download';
 
 interface DownloadButtonProps {
@@ -7,7 +7,7 @@ interface DownloadButtonProps {
   onDownload?: () => void;
 }
 
-export const DownloadButton: React.FC<DownloadButtonProps> = ({
+const DownloadButtonComponent: React.FC<DownloadButtonProps> = ({
   qrCode,
   disabled = false,
   onDownload,
@@ -48,4 +48,7 @@ export const DownloadButton: React.FC<DownloadButtonProps> = ({
     </div>
   );
 };
+
+export const DownloadButton = memo(DownloadButtonComponent);
+DownloadButton.displayName = 'DownloadButton';
 
