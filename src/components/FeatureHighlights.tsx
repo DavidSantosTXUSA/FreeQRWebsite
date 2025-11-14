@@ -43,6 +43,20 @@ const features = [
       </svg>
     ),
   },
+  {
+    title: 'Custom Art + Logos',
+    description: 'Optional creative mode adds gradients, rounded modules, and branded center logos.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-5 h-5">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={1.6}
+          d="M4 7h16M4 12h16M4 17h16M9 7v10M15 7v10"
+        />
+      </svg>
+    ),
+  },
 ];
 
 const FeatureHighlightsComponent = () => {

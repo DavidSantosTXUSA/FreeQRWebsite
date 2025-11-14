@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Header } from './components/Header';
 import { URLInput } from './components/URLInput';
 import { QRCodePreview } from './components/QRCodePreview';
@@ -7,10 +7,17 @@ import { ErrorMessage } from './components/ErrorMessage';
 import { SuccessFeedback } from './components/SuccessFeedback';
 import { useQRCode } from './hooks/useQRCode';
 import { FeatureHighlights } from './components/FeatureHighlights';
+import { CreativeControls } from './components/CreativeControls';
+import { stylePresets } from './data/stylePresets';
+import type { StyledQRCodeOptions } from './types/qrStyles';
 
 function App() {
   const [url, setUrl] = useState<string>('');
   const [downloadSuccess, setDownloadSuccess] = useState<string>('');
+  const [creativeMode, setCreativeMode] = useState<boolean>(false);
+  const [selectedPresetId, setSelectedPresetId] = useState<string>('classic');
+  const [logoDataUrl, setLogoDataUrl] = useState<string | null>(null);
+  const [lastValidURL, setLastValidURL] = useState<string>('');
   const { qrCode, loading, error, generate } = useQRCode();
   const steps = useMemo(
     () => [
@@ -30,13 +37,27 @@ function App() {
     [],
   );
 
+  const selectedPreset = useMemo(() => {
+    return stylePresets.find((preset) => preset.id === selectedPresetId) ?? stylePresets[0];
+  }, [selectedPresetId]);
+
+  const activeStyleOptions = useMemo<StyledQRCodeOptions | undefined>(() => {
+    if (!creativeMode) {
+      return undefined;
+    }
+    return {
+      ...selectedPreset.options,
+      logoDataUrl,
+    };
+  }, [creativeMode, selectedPreset, logoDataUrl]);
+
   const handleURLChange = (newUrl: string) => {
     setUrl(newUrl);
     setDownloadSuccess('');
   };
 
   const handleValidURL = (normalizedURL: string) => {
-    generate(normalizedURL);
+    setLastValidURL(normalizedURL);
   };
 
   const handleDownload = () => {
@@ -49,6 +70,17 @@ function App() {
     setDownloadSuccess(successMessage);
     setTimeout(() => setDownloadSuccess(''), 4000);
   };
+
+  useEffect(() => {
+    if (!lastValidURL) {
+      return;
+    }
+    const config =
+      creativeMode && activeStyleOptions
+        ? { mode: 'styled' as const, styleOptions: activeStyleOptions }
+        : undefined;
+    generate(lastValidURL, config);
+  }, [lastValidURL, creativeMode, activeStyleOptions, generate]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-white text-gray-900">
@@ -66,7 +98,12 @@ function App() {
               </div>
               <div className="space-y-6">
                 <URLInput value={url} onChange={handleURLChange} onValidURL={handleValidURL} />
-                <QRCodePreview qrCode={qrCode} loading={loading} error={error} />
+                <QRCodePreview
+                  qrCode={qrCode}
+                  loading={loading}
+                  error={error}
+                  mode={creativeMode ? 'styled' : 'classic'}
+                />
                 <DownloadButton qrCode={qrCode} onDownload={handleDownload} />
                 <ErrorMessage message={error || ''} />
                 <SuccessFeedback message={downloadSuccess} />
@@ -85,6 +122,16 @@ function App() {
               ))}
             </div>
           </div>
+        </section>
+        <section className="max-w-4xl mx-auto mt-10">
+          <CreativeControls
+            enabled={creativeMode}
+            onToggle={setCreativeMode}
+            selectedPresetId={selectedPresetId}
+            onPresetChange={setSelectedPresetId}
+            onLogoUpload={setLogoDataUrl}
+            logoPreview={logoDataUrl}
+          />
         </section>
         <FeatureHighlights />
       </main>

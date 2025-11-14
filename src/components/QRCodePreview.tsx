@@ -4,9 +4,10 @@ interface QRCodePreviewProps {
   qrCode: string | null;
   loading: boolean;
   error: string | null;
+  mode?: 'classic' | 'styled';
 }
 
-const QRCodePreviewComponent: React.FC<QRCodePreviewProps> = ({ qrCode, loading, error }) => {
+const QRCodePreviewComponent: React.FC<QRCodePreviewProps> = ({ qrCode, loading, error, mode = 'classic' }) => {
   if (loading) {
     return (
       <div className="flex items-center justify-center w-full max-w-md mx-auto p-8 bg-gray-50 rounded-lg">
@@ -35,7 +36,10 @@ const QRCodePreviewComponent: React.FC<QRCodePreviewProps> = ({ qrCode, loading,
   }
 
   return (
-    <div className="flex items-center justify-center w-full max-w-md mx-auto p-4 md:p-8 bg-white rounded-lg border border-gray-200 shadow-sm">
+    <div className="flex flex-col items-center gap-3 w-full max-w-md mx-auto p-4 md:p-8 bg-white rounded-2xl border border-gray-200 shadow-sm">
+      <span className="px-3 py-1 text-xs font-semibold uppercase tracking-wide rounded-full bg-slate-100 text-gray-600">
+        {mode === 'styled' ? 'Creative mode' : 'Classic mode'}
+      </span>
       <img
         src={qrCode}
         alt="Generated QR Code"
