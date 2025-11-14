@@ -16,6 +16,7 @@ function App() {
   const [downloadSuccess, setDownloadSuccess] = useState<string>('');
   const [creativeMode, setCreativeMode] = useState<boolean>(false);
   const [selectedPresetId, setSelectedPresetId] = useState<string>('classic');
+  const [styleOptions, setStyleOptions] = useState<StyledQRCodeOptions>(stylePresets[0].options);
   const [logoDataUrl, setLogoDataUrl] = useState<string | null>(null);
   const [lastValidURL, setLastValidURL] = useState<string>('');
   const { qrCode, loading, error, generate } = useQRCode();
@@ -37,23 +38,31 @@ function App() {
     [],
   );
 
-  const selectedPreset = useMemo(() => {
-    return stylePresets.find((preset) => preset.id === selectedPresetId) ?? stylePresets[0];
-  }, [selectedPresetId]);
-
   const activeStyleOptions = useMemo<StyledQRCodeOptions | undefined>(() => {
     if (!creativeMode) {
       return undefined;
     }
     return {
-      ...selectedPreset.options,
+      ...styleOptions,
       logoDataUrl,
     };
-  }, [creativeMode, selectedPreset, logoDataUrl]);
+  }, [creativeMode, styleOptions, logoDataUrl]);
 
   const handleURLChange = (newUrl: string) => {
     setUrl(newUrl);
     setDownloadSuccess('');
+  };
+
+  const handlePresetChange = (presetId: string) => {
+    setSelectedPresetId(presetId);
+    const preset = stylePresets.find((item) => item.id === presetId);
+    if (preset) {
+      setStyleOptions({ ...preset.options });
+    }
+  };
+
+  const handleStyleOptionsChange = (updated: StyledQRCodeOptions) => {
+    setStyleOptions(updated);
   };
 
   const handleValidURL = (normalizedURL: string) => {
@@ -128,9 +137,11 @@ function App() {
             enabled={creativeMode}
             onToggle={setCreativeMode}
             selectedPresetId={selectedPresetId}
-            onPresetChange={setSelectedPresetId}
+            onPresetChange={handlePresetChange}
             onLogoUpload={setLogoDataUrl}
             logoPreview={logoDataUrl}
+            styleOptions={styleOptions}
+            onStyleChange={handleStyleOptionsChange}
           />
         </section>
         <div className="mt-16">
