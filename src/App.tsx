@@ -123,7 +123,7 @@ function App() {
             </div>
           </div>
         </section>
-        <section className="max-w-4xl mx-auto mt-10">
+        <section className="max-w-4xl mx-auto mt-16">
           <CreativeControls
             enabled={creativeMode}
             onToggle={setCreativeMode}
@@ -133,7 +133,9 @@ function App() {
             logoPreview={logoDataUrl}
           />
         </section>
-        <FeatureHighlights />
+        <div className="mt-16">
+          <FeatureHighlights />
+        </div>
       </main>
     </div>
   );

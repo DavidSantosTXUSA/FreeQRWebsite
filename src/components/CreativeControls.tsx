@@ -37,26 +37,34 @@ export function CreativeControls({
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <p className="text-sm font-semibold text-primary uppercase tracking-wide">Creative mode</p>
-          <p className="text-gray-600 text-sm">
+          <p className="text-gray-600 text-sm mt-1">
             Keep Classic mode for everyday QR codes, or flip the switch for branded art with logos.
           </p>
         </div>
         <button
           type="button"
-          className={`relative inline-flex h-10 w-20 items-center rounded-full transition-colors ${
-            enabled ? 'bg-primary text-white' : 'bg-slate-200 text-gray-500'
+          className={`relative inline-flex h-12 w-28 items-center rounded-full border-2 transition-all ${
+            enabled
+              ? 'bg-primary/90 border-primary shadow-lg shadow-primary/30'
+              : 'bg-white border-primary text-primary'
           }`}
           onClick={() => onToggle(!enabled)}
           aria-pressed={enabled}
         >
           <span
-            className={`inline-block h-8 w-8 transform rounded-full bg-white shadow-lg transition ${
-              enabled ? 'translate-x-10' : 'translate-x-2'
+            className={`absolute inset-0 flex items-center text-xs font-semibold uppercase tracking-wide transition-all ${
+              enabled
+                ? 'justify-start text-white pl-4 pr-10'
+                : 'justify-end text-primary pr-4 pl-10'
             }`}
-          />
-          <span className="absolute left-6 text-xs font-semibold uppercase tracking-wide">
+          >
             {enabled ? 'On' : 'Off'}
           </span>
+          <span
+            className={`inline-block h-9 w-9 transform rounded-full bg-white shadow-md transition-transform ${
+              enabled ? 'translate-x-12' : 'translate-x-1'
+            }`}
+          />
         </button>
       </div>
 
