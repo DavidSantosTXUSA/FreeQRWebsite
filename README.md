@@ -2,6 +2,24 @@
 
 A free, permanent QR code generator designed for personal use and marketing teams. Generate QR codes from URLs instantly - no accounts, no expiration, completely free.
 
+## Screenshots
+
+### Desktop
+
+![Main Interface](Screenshot%202025-11-16%20at%2010.34.53%20AM.png)
+
+![Creative Mode](Screenshot%202025-11-16%20at%2010.36.01%20AM.png)
+
+![QR Code Preview](Screenshot%202025-11-16%20at%2010.36.33%20AM.png)
+
+### iOS / Mobile
+
+![iOS Simulator - Main View](simulator_screenshot_CB9024D2-C5BC-41C6-B6AA-1FB3C7AC1387.png)
+
+![iOS Simulator - Creative Controls](simulator_screenshot_EAE7E975-AAB8-4549-BB73-F78E7041975D.png)
+
+![iOS Simulator - QR Code Display](simulator_screenshot_3BB5A54A-3B09-47AE-8FAE-3642F9145888.png)
+
 ## Features
 
 - **Completely Free Forever**: No hidden costs, no premium tiers, no account required
@@ -54,7 +72,45 @@ This project follows the BMad Method workflow. See `docs/` folder for:
 
 This project is deployed on Vercel. See `docs/architecture.md` for deployment details.
 
+## Contributing
+
+We love contributions! 🎉 This project is open source and we welcome anyone who wants to help make it better. Whether you're fixing bugs, adding features, improving documentation, or suggesting ideas - every contribution matters!
+
+### How to Contribute
+
+1. **Fork the repository** and clone it to your local machine
+2. **Create a branch** for your changes (`git checkout -b feature/amazing-feature`)
+3. **Make your changes** and test them thoroughly
+4. **Commit your changes** with clear, descriptive messages
+5. **Push to your fork** and open a Pull Request
+
+### What You Can Contribute
+
+- 🐛 **Bug Fixes**: Found a bug? Fix it and submit a PR!
+- ✨ **New Features**: Have an idea for a cool feature? We'd love to see it!
+- 📝 **Documentation**: Help improve our docs, add examples, or fix typos
+- 🎨 **UI/UX Improvements**: Make the interface even more beautiful and user-friendly
+- 🧪 **Tests**: Add tests to improve code coverage and reliability
+- 🌍 **Translations**: Help us reach more users by translating the interface
+- 💡 **Ideas**: Open an issue to discuss new features or improvements
+
+### Getting Help
+
+- Check existing [Issues](https://github.com/yourusername/FreeQRCodeWebsite/issues) to see if your question has been asked
+- Open a new issue if you find a bug or have a feature request
+- Feel free to ask questions in discussions!
+
+### Code Style
+
+- Follow the existing code style and patterns
+- Write clear, self-documenting code
+- Add comments for complex logic
+- Ensure your code passes linting (`npm run lint`)
+- Run tests before submitting (`npm test`)
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for more detailed guidelines.
+
 ## License
 
-This project is free and open source.
+This project is free and open source. See [LICENSE](LICENSE) for details.
 
