@@ -6,19 +6,19 @@ A free, permanent QR code generator designed for personal use and marketing team
 
 ### Desktop
 
-![Main Interface](Screenshot%202025-11-16%20at%2010.34.53%20AM.png)
+![Main Interface](screenshot-desktop-main.png)
 
-![Creative Mode](Screenshot%202025-11-16%20at%2010.36.01%20AM.png)
+![Creative Mode](screenshot-desktop-creative.png)
 
-![QR Code Preview](Screenshot%202025-11-16%20at%2010.36.33%20AM.png)
+![QR Code Preview](screenshot-desktop-preview.png)
 
 ### iOS / Mobile
 
-![iOS Simulator - Main View](simulator_screenshot_CB9024D2-C5BC-41C6-B6AA-1FB3C7AC1387.png)
+![iOS Simulator - Main View](screenshot-ios-main.png)
 
-![iOS Simulator - Creative Controls](simulator_screenshot_EAE7E975-AAB8-4549-BB73-F78E7041975D.png)
+![iOS Simulator - Creative Controls](screenshot-ios-creative.png)
 
-![iOS Simulator - QR Code Display](simulator_screenshot_3BB5A54A-3B09-47AE-8FAE-3642F9145888.png)
+![iOS Simulator - QR Code Display](screenshot-ios-preview.png)
 
 ## Features
 
