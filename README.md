@@ -14,11 +14,11 @@ A free, permanent QR code generator designed for personal use and marketing team
 
 ### iOS / Mobile
 
-![iOS Simulator - Main View](screenshot-ios-main.png)
+<img src="screenshot-ios-main.png" alt="iOS Simulator - Main View" width="300" />
 
-![iOS Simulator - Creative Controls](screenshot-ios-creative.png)
+<img src="screenshot-ios-creative.png" alt="iOS Simulator - Creative Controls" width="300" />
 
-![iOS Simulator - QR Code Display](screenshot-ios-preview.png)
+<img src="screenshot-ios-preview.png" alt="iOS Simulator - QR Code Display" width="300" />
 
 ## Features
 
