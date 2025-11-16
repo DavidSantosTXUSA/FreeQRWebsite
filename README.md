@@ -14,11 +14,21 @@ A free, permanent QR code generator designed for personal use and marketing team
 
 ### iOS / Mobile
 
-<img src="screenshot-ios-main.png" alt="iOS Simulator - Main View" width="300" />
-
-<img src="screenshot-ios-creative.png" alt="iOS Simulator - Creative Controls" width="300" />
-
+<table>
+<tr>
+<td width="50%">
+<img src="screenshot-ios-main.png" alt="iOS Simulator - Main View" width="100%" />
+</td>
+<td width="50%">
+<img src="screenshot-ios-creative.png" alt="iOS Simulator - Creative Controls" width="100%" />
+</td>
+</tr>
+<tr>
+<td colspan="2" align="center">
 <img src="screenshot-ios-preview.png" alt="iOS Simulator - QR Code Display" width="300" />
+</td>
+</tr>
+</table>
 
 ## Features
 
